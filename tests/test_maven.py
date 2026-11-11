@@ -15,9 +15,15 @@ class MavenTests(unittest.TestCase):
         config = load_config(PROJECT / "config.ini")
         dependencies = MavenRepository(config).direct_dependencies()
         self.assertEqual(len(dependencies), 2)
-        self.assertEqual(dependencies[0].coordinates, "org.example:demo-core:2.1.0")
+        self.assertEqual(
+            dependencies[0].coordinates,
+            "org.example:demo-core:2.1.0",
+        )
         self.assertEqual(dependencies[0].scope, "compile")
-        self.assertEqual(dependencies[1].coordinates, "org.example:demo-utils:1.4.0")
+        self.assertEqual(
+            dependencies[1].coordinates,
+            "org.example:demo-utils:1.4.0",
+        )
         self.assertEqual(dependencies[1].scope, "runtime")
         self.assertTrue(dependencies[1].optional)
 
@@ -31,7 +37,10 @@ class MavenTests(unittest.TestCase):
                 encoding="utf-8",
             )
             config = load_config(config_path)
-            with self.assertRaisesRegex(DependencyResolutionError, "POM не найден"):
+            with self.assertRaisesRegex(
+                DependencyResolutionError,
+                "POM не найден",
+            ):
                 MavenRepository(config).direct_dependencies()
 
     def test_pom_without_dependencies_returns_empty_list(self) -> None:

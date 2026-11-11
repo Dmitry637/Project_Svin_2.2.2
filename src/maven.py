@@ -1,12 +1,12 @@
 from __future__ import annotations
 
+from dataclasses import dataclass
+from pathlib import Path
 import re
 import urllib.error
 import urllib.request
-import xml.etree.ElementTree as ET
-from dataclasses import dataclass
-from pathlib import Path
 from urllib.parse import quote
+import xml.etree.ElementTree as ET
 
 from src.config import AppConfig
 
@@ -361,8 +361,9 @@ class MavenRepository:
 
         if coordinates != requested_coordinates:
             raise DependencyResolutionError(
-                "для получения POM зависимостей нужен каталог Maven-репозитория; "
-                "одиночный .pom-файл содержит только исходный пакет."
+                "для получения POM зависимостей нужен каталог "
+                "Maven-репозитория; одиночный .pom-файл содержит "
+                "только исходный пакет."
             )
 
     def _read_local_pom(self, pom_path: Path) -> bytes:
